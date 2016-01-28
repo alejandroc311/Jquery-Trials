@@ -9,6 +9,7 @@ var $body = $("body");
     $pathContainer = $("<div></div>");
 
     $($pathContainer).append(getProjectPath());
+
     $pathContainer.appendTo($body);
 
     //access the h1 tags inside the dive in pathContainer
@@ -16,11 +17,11 @@ var $body = $("body");
         //make sure you have the project path
   }
 function getProjectPath(){
-  projectPath = "<h1>some path<h1>";
+  console.log("h2 created");
+  projectPath = "<h2>some path</h2>";
   return projectPath;
   //work up to master directory
     //get attr of directory
       //in attr get its src for the path.
 }
-
 printPath();
