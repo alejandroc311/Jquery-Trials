@@ -9,10 +9,7 @@ var $button2 = $("<button>Hide path</button>");
   //navigate to h1 and print the path to the project folder.
   function printPath(){
 
-
-
     $($pathContainer).append(getProjectPath());
-
     $pathContainer.appendTo($body);
 
     //access the h1 tags inside the divein pathContainer
@@ -26,11 +23,11 @@ function getProjectPath(){
       //in attr get its src for the path.
       //document.traverse();
       //path = document.attr();
-      //
-  var path = "text";
-  projectPath = "<h1>"+ path +"</h1>";
-  console.log("h1 tags created");
-  return projectPath;
+
+    var path = "text";
+    projectPath = "<h1>"+ path +"</h1>";
+    console.log("h1 tags created");
+    return projectPath;
 
 }
 function activateButtons(button){
@@ -39,12 +36,19 @@ function activateButtons(button){
   /*some function*/
 });}
 
+function setElemCoord(element,vCord,hCord){
+  $(element).offset({top:vCord,left:hCord});
+}
 
 $($button).appendTo($body);
 $($button2).appendTo($body);
+
+setElemCoord($button,30,30);
+setElemCoord($button2,30,120);
+
 $($button).click(function(event){
   printPath();
 });
 $($button2).click(function(event){
-  $($pathContainer).remove();
+  $($pathContainer).empty().remove();
 });
