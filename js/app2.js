@@ -7,28 +7,34 @@
 
 
 //cache the variables that I'll use
+
 var $body = $("body");
 var $nav = $("<nav></nav>");
 var $dropdownMenu = $("<div></div>");
 var $listContainer = $("<ul></ul>");
 var listItems = ["Home","Contact","About"];
 
+function setBody(){
+  var bodyStyles = {padding:0,margin:0};
+  $body.css(bodyStyles);
+}
+
 function setToolbar(){
 
-  var styles = {backgroundColor:"black"};
+  var styles = {backgroundColor:"black", padding:0, margin:0};
   $nav.append($listContainer).css(styles);
-  $nav.appendTo($body).css("padding",0).css("margin",0);
-
-
+  $nav.appendTo($body);
 }
 
 function setListItems(){
   for (var i = 0; i < listItems.length; i++) {
-    var listItem = $("<li>"+listItems[i]+"</li>");
+    var listItem = $("<li><a>"+listItems[i]+"</a></li>");
     $listContainer.append(listItem);
   }
-  $listContainer.css("color","white");
-}
 
+  var $listStyle = {'color':'white',listStyle:"none",padding:0,margin:0};
+  $listContainer.css($listStyle);
+}
+setBody();
 setToolbar();
 setListItems();
