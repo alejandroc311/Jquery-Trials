@@ -10,8 +10,8 @@
 
 var $body = $("body");
 var $nav = $("<nav></nav>");
-var $dropdownMenu = $("<div></div>");
-var $listContainer = $("<ul></ul>");
+var $dropdownMenuDiv = $("<div></div>");
+var $toolbarListContainer = $("<ul></ul>");
 
 
 var listItems = ["Home","Contact","About"];
@@ -23,22 +23,22 @@ function setBody(){
 
 function setToolbar(){
 
-  var styles = {backgroundColor:"black", padding:0, margin:0};
-  $nav.append($listContainer).css(styles);
+  var $toolbarstyle = {backgroundColor:"black", padding:0, margin:0};
+  $nav.append($toolbarListContainer).css($toolbarstyle);
   $nav.appendTo($body);
+  $toolbarListContainer.css({'color':'white',listStyle:"none",padding:0,margin:0,'overflow':'hidden'});
 }
 
 
 function setLinks(){
   for (var i = 0; i < listItems.length; i++) {
     var listItem = listItems[i];
-    var listWithLink = $("<li><a>"+listItem+"</a></li>")
-    $listContainer.append(listWithLink);
+    var listItemLinks = $("<li><a class = 'toolBarLinks'>"+listItem+"</a></li>")
+    $toolbarListContainer.append(listItemLinks);
   }
-
-  var $listStyle = {'color':'white',listStyle:"none",padding:0,margin:0,'overflow':'hidden'};
-  $listContainer.css($listStyle);
-  $("a").css({float:'left',padding: "8px 16px 8px 16px"});
+  if($('a').hasClass("toolBarLinks")){
+    $(".toolBarLinks").css({float:'left',padding: "8px 16px 8px 16px"});
+    }
 }
 
 
@@ -46,5 +46,4 @@ function setLinks(){
 
 setBody();
 setToolbar();
-
 setLinks();
