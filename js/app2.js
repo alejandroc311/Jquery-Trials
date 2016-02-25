@@ -28,7 +28,8 @@ function setToolbar(){
   $nav.appendTo($body);
 }
 
-function setListItems(){
+
+function setLinks(){
   for (var i = 0; i < listItems.length; i++) {
     var listItem = listItems[i];
     var listWithLink = $("<li><a>"+listItem+"</a></li>")
