@@ -12,11 +12,13 @@ var $body = $("body");
 var $nav = $("<nav></nav>");
 var $dropdownMenu = $("<div></div>");
 var $listContainer = $("<ul></ul>");
+
+
 var listItems = ["Home","Contact","About"];
 
 function setBody(){
-  var bodyStyles = {padding:0,margin:0};
-  $body.css(bodyStyles);
+  var $bodyStyle = {padding:0,margin:0};
+  $body.css($bodyStyle);
 }
 
 function setToolbar(){
@@ -28,13 +30,20 @@ function setToolbar(){
 
 function setListItems(){
   for (var i = 0; i < listItems.length; i++) {
-    var listItem = $("<li><a>"+listItems[i]+"</a></li>");
-    $listContainer.append(listItem);
+    var listItem = listItems[i];
+    var listWithLink = $("<li><a>"+listItem+"</a></li>")
+    $listContainer.append(listWithLink);
   }
 
-  var $listStyle = {'color':'white',listStyle:"none",padding:0,margin:0};
+  var $listStyle = {'color':'white',listStyle:"none",padding:0,margin:0,'overflow':'hidden'};
   $listContainer.css($listStyle);
+  $("a").css({float:'left',padding: "8px 16px 8px 16px"});
 }
+
+
+
+
 setBody();
 setToolbar();
-setListItems();
+
+setLinks();
