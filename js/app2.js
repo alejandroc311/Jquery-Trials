@@ -13,17 +13,16 @@ var $nav = $("<nav></nav>");
 var $dropdownMenuDiv = $("<div></div>");
 var $toolbarListContainer = $("<ul></ul>");
 var listItems = ["Home","Contact","About"];
-var $screenWidth = $(window).width();
-var $screenHeight = $(window).height();
+
 function setBody(){
   var $bodyStyle = {padding:0,margin:0};
   $body.css($bodyStyle);
 }
 //need a toolbar that has menu options
 function setToolbar(){
-
   var $toolbarstyle = {backgroundColor:"black", padding:0, margin:0};
-  $nav.append($toolbarListContainer).css($toolbarstyle);
+  $nav.css($toolbarstyle);
+  $nav.append($toolbarListContainer);
   $nav.appendTo($body);
   $toolbarListContainer.css({'color':'white',listStyle:"none",padding:0,margin:0,'overflow':'hidden'});
 }
@@ -43,18 +42,40 @@ function setLinks(){
   //make another function to make it check constantly the current widths and heights
 
   //then make a function that adjusts the screen accordingly
-function checkScreenSize(){
+function adjustScreen(){
  $(window).resize(function(){
+   var $screenWidth = $(window).width();
    if($screenWidth<800){
-     $nav.append($dropdownMenuDiv);
-     console.log("Div appended");
+     $nav.append(($dropdownMenuDiv));
   }else{
-    $($dropdownMenuDiv).remove();
-    console.log("div removed");
+    $dropdownMenuDiv.remove();
   }
  });
 }
-checkScreenSize();
+
+function hideLinks(){
+  $(window).resize(function(){
+    var $screenWidth = $(window).width();
+    if($screenWidth<800){
+      if($('a').hasClass("toolBarLinks")){
+        $toolbarListContainer.remove();
+      }
+    }
+  });
+}
+
+function showLinks(){
+  $(window).resize(function(){
+    var $screenWidth = $(window).width();
+    if($screenWidth>800){
+      //TODO function that checks if it is already appended, to not keep appending
+        $nav.append($toolbarListContainer);
+      }
+  });
+}
+showLinks();
+hideLinks();
+adjustScreen();
 setBody();
 setToolbar();
 setLinks();
