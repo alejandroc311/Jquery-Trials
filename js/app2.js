@@ -1,23 +1,20 @@
 
 //when the page reaches a certain size the menu options need to be hidden into a dropdownn menu.
 // when the drop down menu is clicked it shows the options in a vertical list.
-//
-
-
-
 
 //cache the variables that I'll use
 
 var $body = $("body");
 var $nav = $("<nav></nav>");
 var $dropdownMenuDiv = $("<div></div>");
-var $toolbarListContainer = $("<ul></ul>");
+var $toolbarListContainer = $("<ul class ='toolBarLinks'></ul>");
 var listItems = ["Home","Contact","About"];
 
 function setBody(){
   var $bodyStyle = {padding:0,margin:0};
   $body.css($bodyStyle);
 }
+
 //need a toolbar that has menu options
 function setToolbar(){
   var $toolbarstyle = {backgroundColor:"black", padding:0, margin:0};
@@ -28,12 +25,14 @@ function setToolbar(){
 }
 
 
-function setLinks(){
+function setToolbarLinks(){
   for (var i = 0; i < listItems.length; i++) {
-    $toolbarListContainer.append( $("<li><a class = 'toolBarLinks'>"+listItems[i]+"</a></li>"));
+    $toolbarListContainer.append( $("<li><a>"+listItems[i]+"</a></li>"));
   }
-  if($('a').hasClass("toolBarLinks")){
-    $(".toolBarLinks").css({float:'left',padding: "8px 16px 8px 16px"});
+  if($('a').parent().parent().hasClass("toolBarLinks")){
+    //NOTE TODO CHECK THIS THIS IS IMPORTANT//
+    //FIND IF THERE IS A JQUERY METHOD THAT CHECKS IF IT HAS A CERTAIN PARENT IN THE DOM TREE
+    $("a").css({float:'left',padding: "8px 16px 8px 16px"});
     }
 }
 
@@ -52,30 +51,83 @@ function adjustScreen(){
   }
  });
 }
+//TODO MAKE IT CHANGE CLASSES WHEN THE SCREEN SIZE CHANGES TO AVOID BUGS
+//NOTE ITS REMOVING THE TOOLBAR LIST ITEMS INDISCRIMANTELY BEAUSE IT HAS THE TOOLBARLINKS CLASS. SEE LINE 96
 
-function hideLinks(){
+function hideToolbarLinks(){
   $(window).resize(function(){
     var $screenWidth = $(window).width();
     if($screenWidth<800){
-      if($('a').hasClass("toolBarLinks")){
+      if($('a').parent().parent().hasClass("toolBarLinks")){
+        $toolbarListContainer.addClass("dropDownLinks");
         $toolbarListContainer.remove();
       }
     }
   });
 }
 
-function showLinks(){
+function showToolbarLinks(){
   $(window).resize(function(){
     var $screenWidth = $(window).width();
     if($screenWidth>800){
-      //TODO function that checks if it is already appended, to not keep appending
+      if($toolbarListContainer.hasClass('toolBarLinks')){
+        $toolbarListContainer.removeClass("dropDownLinks");
         $nav.append($toolbarListContainer);
+      }
+      else{
+        $toolbarListContainer.addClass("toolBarLinks");
+        $toolbarListContainer.removeClass("dropDownLinks");
+        $nav.append($toolbarListContainer);
+      }
+      //TODO function that checks if it is already appended, to not keep appending
+
       }
   });
 }
-showLinks();
-hideLinks();
-adjustScreen();
+
+
+
+//NOTE my code isn't dry i need to make it more efficient so that i can make it dryer. im repeating the same shit over and over.
+//NOTE make it so that it return true or false and that it actually evaluates to true or false, wherever implemenred.
+//NOTE TODO
+function isScreenLarge(){
+  $(window).resize(function(){
+    var $screenWidth = $(window).width();
+    if($screenWidth>800){
+      return true;
+    }else if($screenWidth <= 800){
+      return false;
+    }
+  });
+}
+
+function setDropDownMenu(){
+  $(window).resize(function(){
+    var $screenWidth = $(window).width();
+    if($screenWidth<800){
+      if($toolbarListContainer.hasClass("dropDownLinks")){
+        $toolbarListContainer.removeClass('toolBarLinks');
+        $dropdownMenuDiv.append($toolbarListContainer);
+      }
+      else{
+        $toolbarListContainer.addClass("dropDownLinks");
+        $toolbarListContainer.removeClass('toolBarLinks');
+        $dropdownMenuDiv.append($toolbarListContainer);
+      }
+
+    }
+  });
+}
+
+function styleDropDownMenu(){
+
+}
+
+
 setBody();
 setToolbar();
-setLinks();
+setToolbarLinks();
+setDropDownMenu();
+showToolbarLinks();
+hideToolbarLinks();
+adjustScreen();
