@@ -9,6 +9,7 @@ var $nav = $("<nav></nav>");
 var $dropdownMenuDiv = $("<div></div>");
 var $toolbarListContainer = $("<ul class ='toolBarLinks'></ul>");
 var listItems = ["Home","Contact","About"];
+var $dropDownIcon = $("<img src ='../icons/mobilemenu.png'></img>");
 
 function setBody(){
   var $bodyStyle = {padding:0,margin:0};
@@ -59,7 +60,7 @@ function hideToolbarLinks(){
     var $screenWidth = $(window).width();
     if($screenWidth<800){
       if($('a').parent().parent().hasClass("toolBarLinks")){
-        $toolbarListContainer.addClass("dropDownLinks");
+        $dropdownMenuDiv.addClass("dropDownLinks");
         $toolbarListContainer.remove();
       }
     }
@@ -71,12 +72,12 @@ function showToolbarLinks(){
     var $screenWidth = $(window).width();
     if($screenWidth>800){
       if($toolbarListContainer.hasClass('toolBarLinks')){
-        $toolbarListContainer.removeClass("dropDownLinks");
+        $dropdownMenuDiv.removeClass("dropDownLinks");
         $nav.append($toolbarListContainer);
       }
       else{
         $toolbarListContainer.addClass("toolBarLinks");
-        $toolbarListContainer.removeClass("dropDownLinks");
+        $dropdownMenuDiv.removeClass("dropDownLinks");
         $nav.append($toolbarListContainer);
       }
       //TODO function that checks if it is already appended, to not keep appending
@@ -105,14 +106,14 @@ function setDropDownMenu(){
   $(window).resize(function(){
     var $screenWidth = $(window).width();
     if($screenWidth<800){
-      if($toolbarListContainer.hasClass("dropDownLinks")){
+      if($dropdownMenuDiv.hasClass("dropDownLinks")){
         $toolbarListContainer.removeClass('toolBarLinks');
-        $dropdownMenuDiv.append($toolbarListContainer);
+        styleDropDownMenu();
       }
       else{
-        $toolbarListContainer.addClass("dropDownLinks");
+        $dropdownMenuDiv.addClass("dropDownLinks");
         $toolbarListContainer.removeClass('toolBarLinks');
-        $dropdownMenuDiv.append($toolbarListContainer);
+        styleDropDownMenu();
       }
 
     }
@@ -120,7 +121,11 @@ function setDropDownMenu(){
 }
 
 function styleDropDownMenu(){
+  if($("div").hasClass("dropDownLinks")){
+    $toolbarListContainer.remove();
+    $dropDownIcon.appendTo($dropdownMenuDiv);
 
+  }
 }
 
 
@@ -131,3 +136,4 @@ setDropDownMenu();
 showToolbarLinks();
 hideToolbarLinks();
 adjustScreen();
+styleDropDownMenu();
