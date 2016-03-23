@@ -56,75 +56,51 @@ function adjustScreen(){
 //NOTE ITS REMOVING THE TOOLBAR LIST ITEMS INDISCRIMANTELY BEAUSE IT HAS THE TOOLBARLINKS CLASS. SEE LINE 96
 
 function hideToolbarLinks(){
-  $(window).resize(function(){
-    var $screenWidth = $(window).width();
-    if($screenWidth<800){
       if($('a').parent().parent().hasClass("toolBarLinks")){
         $dropdownMenuDiv.addClass("dropDownLinks");
         $toolbarListContainer.remove();
       }
-    }
-  });
 }
 
 function showToolbarLinks(){
-  $(window).resize(function(){
-    var $screenWidth = $(window).width();
-    if($screenWidth>800){
-      if($toolbarListContainer.hasClass('toolBarLinks')){
-        $dropdownMenuDiv.removeClass("dropDownLinks");
-        $nav.append($toolbarListContainer);
-      }
-      else{
-        $toolbarListContainer.addClass("toolBarLinks");
-        $dropdownMenuDiv.removeClass("dropDownLinks");
-        $nav.append($toolbarListContainer);
-      }
+  $dropdownMenuDiv.removeClass("dropDownLinks");
+  $nav.append($toolbarListContainer);
       //TODO function that checks if it is already appended, to not keep appending
-
-      }
-  });
 }
+
+
 
 
 
 //NOTE my code isn't dry i need to make it more efficient so that i can make it dryer. im repeating the same shit over and over.
 //NOTE make it so that it return true or false and that it actually evaluates to true or false, wherever implemenred.
 //NOTE TODO
-function isScreenLarge(){
+
   $(window).resize(function(){
     var $screenWidth = $(window).width();
     if($screenWidth>800){
-      return true;
+      showToolbarLinks();
     }else if($screenWidth <= 800){
-      return false;
+      hideToolbarLinks();
+      setDropDownMenu();
     }
   });
-}
+
 
 function setDropDownMenu(){
-  $(window).resize(function(){
-    var $screenWidth = $(window).width();
-    if($screenWidth<800){
-      if($dropdownMenuDiv.hasClass("dropDownLinks")){
-        $toolbarListContainer.removeClass('toolBarLinks');
-        styleDropDownMenu();
-      }
-      else{
-        $dropdownMenuDiv.addClass("dropDownLinks");
-        $toolbarListContainer.removeClass('toolBarLinks');
-        styleDropDownMenu();
-      }
-
+  if($dropdownMenuDiv.hasClass("dropDownLinks")){
+      styleDropDownMenu();
     }
-  });
+
+
 }
+
+
 
 function styleDropDownMenu(){
   if($("div").hasClass("dropDownLinks")){
     $toolbarListContainer.remove();
     $dropDownIcon.appendTo($dropdownMenuDiv);
-
   }
 }
 
@@ -132,8 +108,5 @@ function styleDropDownMenu(){
 setBody();
 setToolbar();
 setToolbarLinks();
-setDropDownMenu();
-showToolbarLinks();
-hideToolbarLinks();
+
 adjustScreen();
-styleDropDownMenu();
