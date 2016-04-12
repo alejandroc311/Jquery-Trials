@@ -114,13 +114,43 @@ function styleDropDownList(){
   }
 
 }
-$dropDownIcon.hover(function(){
+/*$dropDownIcon.hover(function(){
   revealDropDownMenu();
 },function(){
   elementsArray = [$toolbarListContainer, $('a')];
   resetCSS(elementsArray);
   $toolbarListContainer.remove();
+});*/
+//TODO DO THIS SHIT
+/*setInterval(function(){
+  if($dropDownIcon.is(":hover")){
+    revealDropDownMenu();
+  }else{
+    elementsArray = [$toolbarListContainer, $('a')];
+    resetCSS(elementsArray);
+    $toolbarListContainer.remove();
+  }
+},200);*/
+/*
+$dropdownMenuDiv.mouseenter(function(){
+  revealDropDownMenu();
 });
+$dropdownMenuDiv.mouseleave(function(){
+  elementsArray = [$toolbarListContainer, $('a')];
+  resetCSS(elementsArray);
+  $toolbarListContainer.remove();
+});*/
+$(document).on('mouseenter',$dropDownIcon,function(){
+  revealDropDownMenu();
+});
+
+$(document).on('mouseout',$dropDownIcon,function(){
+  elementsArray = [$toolbarListContainer, $('a')];
+  $toolbarListContainer.remove();
+  resetCSS(elementsArray);
+
+});
+
 
 function resetCSS($elementArray){
   if($elementArray instanceof Array){
