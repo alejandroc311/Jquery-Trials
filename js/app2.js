@@ -11,6 +11,8 @@ var $toolbarListContainer = $("<ul class ='toolBarLinks'></ul>");
 var listItems = ["Home","Contact","About"];
 var $dropDownIcon = $("<img src ='../icons/mobilemenu.png'></img>");
 var elementsArray;
+
+
 function setBody(){
   var $bodyStyle = {padding:0,margin:0};
   $body.css($bodyStyle);
@@ -140,25 +142,34 @@ $dropdownMenuDiv.mouseleave(function(){
   resetCSS(elementsArray);
   $toolbarListContainer.remove();
 });*/
-$(document).on('mouseenter',$dropDownIcon,function(){
-  revealDropDownMenu();
+$("body").delegate($dropDownIcon,'mouseenter',function(){
+  //console.log("Mouseenter was activated.");
+  if($dropDownIcon.parent().hasClass("dropDownLinks")){
+    revealDropDownMenu();
+  }
+
+
 });
 
-$(document).on('mouseout',$dropDownIcon,function(){
-  elementsArray = [$toolbarListContainer, $('a')];
-  $toolbarListContainer.remove();
-  resetCSS(elementsArray);
+$("body").delegate($dropDownIcon,'mouseleave',function(){
+  //console.log("Mouseleave was activated.");
+  if($dropDownIcon.parent().hasClass('dropDownLinks')){
+    elementsArray = [$toolbarListContainer, $('a')];
+    $toolbarListContainer.remove();
+    resetCSS(elementsArray);
+  }
+
 
 });
 
 
 function resetCSS($elementArray){
   if($elementArray instanceof Array){
-    console.log("The loop started");
+    //console.log("The loop started");
     for(var i = 0; i < $elementArray.length; i++){
-        console.log("Inside the loop");
+        //console.log("Inside the loop");
         $elementArray[i].removeAttr("style");
-        console.log("This element has been reset:" + $elementArray[i]);
+        //console.log("This element has been reset:" + $elementArray[i]);
     }
   }else {
     return 0;
